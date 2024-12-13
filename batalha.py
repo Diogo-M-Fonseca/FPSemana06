@@ -1,5 +1,4 @@
 import json
-
 class Personagem:
     def __init__(self, nome, vida, ataque):
         self.nome = nome
@@ -9,6 +8,7 @@ class Personagem:
     def atacar(self, inimigo):
         inimigo.vida -= self.ataque
         print(f"{self.nome} Ataca {inimigo.nome} e Causa {self.ataque} de Dano!")
+        return
 
     def __str__(self):
         return f"{self.nome} {self.vida}"
@@ -42,7 +42,7 @@ class Arqueiro(Personagem):
         for enemy in enemies:
             if self != enemy:
                 enemy.vida-=15
-        print(f"{self.nome} usa Chuva de Flechas e Causa {15} de Dano a Todos os Inimigos!")
+                print(f"{self.nome} usa Chuva de Flechas e Causa {15} de Dano a Todos os Inimigos!")
 
 def importar_personagens(caminho):
     with open(caminho, 'r')as characters:
@@ -65,7 +65,8 @@ def ordenar_personagens_por_vida(personagens):
                 personagens[j], personagens[j + 1] = personagens[j + 1], personagens[j]
     return personagens
 
-personagens, num_personagens = importar_personagens('personagens.json')
+# Exemplo de uso
+personagens, num_personagens= importar_personagens('personagens.json')
 print(f"{num_personagens} Personagens Entram em Batalha!")
 
 personagens = ordenar_personagens_por_vida(personagens)
@@ -86,9 +87,9 @@ print(personagens[0])
 personagens[0].especial()
 print(personagens[0])
 
-personagens[1].especial([personagens[0], personagens[2]])
+personagens[1].especial([personagens[0], personagens[1]])
 print(personagens[0])
-print(personagens[2])
+print(personagens[1])
 
 personagens[2].especial(personagens[1])
 print(personagens[1])
